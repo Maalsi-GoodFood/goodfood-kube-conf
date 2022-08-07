@@ -7,5 +7,6 @@
 3. Apply all configuration files: ```kubectl apply -f .```
 4. Create tunnel to access Ingress service: ```minikube tunnel```
 
+You can also use ```minikube dashboard```  
 You can send requests to the cluster at this address: localhost (the default port is 80).  
 Currently, all requests are passed to order.

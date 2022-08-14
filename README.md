@@ -13,8 +13,6 @@ You can also use ```minikube dashboard```
 
 >The oder app pod will restart a few times because the database is not ready yet, it is not a problem.
 
-You can find
-
 ## Replicated database
 There are 3 database instances: one primary and two replicas.  
 The replicas continuously synchronise their data with the primary.  

@@ -1,0 +1,31 @@
+# Service for write requests: host=mariadb-sts-0.order-database-service:3306
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-database-service
+  labels:
+    app: mariadb
+spec:
+  ports:
+    - port: 3306
+      name: mariadb-port
+  clusterIP: None
+  selector:
+    app: order-database
+
+---
+
+# Service for read requests: order-database-service-read:3306
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-database-service-read
+  labels:
+    app: order-database-read
+    readonly: "true"
+spec:
+  ports:
+    - name: order-mariadb-port
+      port: 3306
+  selector:
+    app: order-mariadb

@@ -2,7 +2,7 @@
 
 ## Deploy the cluster locally
 
-1. Start minikube on an admin terminal: ```minikube start```
+1. Start minikube: ```minikube start```
 2. Enable Ingress: ```minikube addons enable ingress```
 3. Apply all configuration files: ```kubectl apply -R -f .```
 4. Create tunnel to access Ingress service: ```minikube tunnel```

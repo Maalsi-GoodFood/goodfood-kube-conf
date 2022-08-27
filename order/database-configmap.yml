@@ -22,10 +22,10 @@ data:
     GRANT REPLICATION SLAVE ON *.* TO 'repluser'@'%';
     CREATE DATABASE order_springboot_database;
   secondary.sql: |
-    # we have to know name of sts (`mariadb-sts`) and
+    # we have to know name of sts (`mariadb-order-sts`) and
     # service `order-database-service` in advance as an FQDN
     CHANGE MASTER TO
-    MASTER_HOST='mariadb-sts-0.order-database-service.default.svc.cluster.local',
+    MASTER_HOST='mariadb-order-sts-0.order-database-service.default.svc.cluster.local',
     MASTER_USER='repluser',
     MASTER_PASSWORD='replsecret',
     MASTER_PORT=3306,

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mariadb-sts
+  name: mariadb-order-sts
 spec:
   serviceName: "order-database-service"
   replicas: 3
@@ -92,7 +92,7 @@ spec:
               cd /etc/mysql/conf.d/
               ls ./
               file_name=
-              mariadb-dump -hmariadb-sts-$(($ordinal-1)).order-database-service.default.svc.cluster.local -uroot -proot --all-databases > dump-peer-$(($ordinal-1)).sql
+              mariadb-dump -hmariadb-order-sts-$(($ordinal-1)).order-database-service.default.svc.cluster.local -uroot -proot --all-databases > dump-peer-$(($ordinal-1)).sql
               echo "Check that we have file created"
               ls ./
           volumeMounts:
@@ -143,6 +143,6 @@ spec:
           requests:
             storage: 300M
 # Delete the
-# pvc's  for i in 0 1 2; do kubectl delete pvc datadir-mariadb-sts-$i; done
+# pvc's  for i in 0 1 2; do kubectl delete pvc datadir-mariadb-order-sts-$i; done
 # https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/
 # https://github.com/Yolean/kubernetes-mysql-cluster/blob/master/50mariadb.yml

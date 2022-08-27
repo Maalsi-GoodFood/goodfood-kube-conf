@@ -1,4 +1,4 @@
-# Service for write requests: host=mariadb-sts-0.order-database-service:3306
+# Service for write requests: host=mariadb-order-sts-0.order-database-service:3306
 apiVersion: v1
 kind: Service
 metadata:
@@ -28,4 +28,4 @@ spec:
     - name: order-mariadb-port
       port: 3306
   selector:
-    app: order-mariadb
+    app: order-database

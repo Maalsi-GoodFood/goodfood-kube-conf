@@ -1,0 +1,31 @@
+# Service for write requests: host=mariadb-auth-sts-0.auth-database-service:3306
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-database-service
+  labels:
+    app: mariadb
+spec:
+  ports:
+    - port: 3306
+      name: mariadb-port
+  clusterIP: None
+  selector:
+    app: auth-database
+
+---
+
+# Service for read requests: auth-database-service-read:3306
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-database-service-read
+  labels:
+    app: auth-database-read
+    readonly: "true"
+spec:
+  ports:
+    - name: auth-mariadb-port
+      port: 3306
+  selector:
+    app: auth-database

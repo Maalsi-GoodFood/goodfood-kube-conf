@@ -4,7 +4,7 @@ metadata:
   name: mariadb-order-sts
 spec:
   serviceName: "order-database-service"
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: order-database

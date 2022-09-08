@@ -26,3 +26,7 @@ spec:
           requests:
             memory: "200Mi"
             cpu: "700m"
+      initContainers:
+        - name: wait-db
+          image: busybox:1.31
+          command: ['sh', '-c', "until nslookup mariadb-order-sts-0.order-database-service.default.svc.cluster.local; do echo waiting for mydb; sleep 20; done"]

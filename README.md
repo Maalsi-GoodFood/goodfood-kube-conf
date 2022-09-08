@@ -1,4 +1,4 @@
-# Minikube configuration
+_# Minikube configuration
 
 ## Deploy the cluster locally
 
@@ -24,7 +24,8 @@ For read requests, use any database instance (primary or replicas).
 
 ### Entry point
 The entrypoint of the cluster is: localhost (the default port is 80).  
-All requests are passed to the order service.
+Requests with prefix /api/auth are passed to the authorization server.
+All remaining requests are passed to the order service.
 
 ### Order
 #### App
@@ -32,6 +33,14 @@ The order app is deployed on a single instance.
 
 #### Database
 The order app uses the primary database for all database queries.
+
+
+### Authorization server
+#### App
+The authorization server is deployed on a single instance.
+
+#### Database
+The authorization server uses the primary for write queries (signup) and any instance for read queries (sign in, token validation).
 
 ## Sources
 https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/  

@@ -13,6 +13,13 @@ You can also use ```minikube dashboard```
 
 >The oder app pod will restart a few times because the database is not ready yet, it is not a problem.
 
+## Kafka - Zookeeper usage in terminal
+
+1. Foward port: ```kubectl port-forward <kafka-pod-id> 9092```
+2. Produce message: ```echo "hello goodfood!" | kafkacat -P -b localhost:9092 -t test```
+3. Consume topic messages: ```kafkacat -C -b localhost:9092 -t test```
+
+
 ## Replicated database
 There are 3 database instances: one primary and two replicas.  
 The replicas continuously synchronise their data with the primary.  

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cart-redis-config
+data:
+  redis-config: |
+    maxmemory 300mb

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-database
+spec:
+  selector:
+    matchLabels:
+      app: cart-database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cart-database
+    spec:
+      containers:
+        - name: master
+          image: redis:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 6379

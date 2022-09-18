@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-deployment
+  labels:
+    app: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart
+  template:
+    metadata:
+      labels:
+        app: cart
+    spec:
+      containers:
+        - name: cart
+          image: cesigoodfood/cart:latest
+          ports:
+              - containerPort: 4000
+          resources:
+            limits:
+              memory: "200Mi"
+              cpu: "700m"
+            requests:
+              memory: "200Mi"
+              cpu: "700m"
+      initContainers:
+        - name: wait-db
+          image: busybox:1.31
+          command: ['sh', '-c', "until nslookup cart-database-service.default.svc.cluster.local; do echo waiting for mydb; sleep 20; done"]

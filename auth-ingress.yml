@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress
+  name: auth-ingress
 spec:
   ingressClassName: kong
   rules:
@@ -13,19 +13,11 @@ spec:
               service:
                 name: auth-service
                 port:
-                  number: 8080
-          - path: /api/cart
-            pathType: Prefix
-            backend:
-              service:
-                name: cart-service
-                port:
-                  number: 4000
-          - path: /
+                  number: 80
+          - path: /api
             pathType: Prefix
             backend:
               service:
                 name: order-service
                 port:
-                  number: 8080
-
+                  number: 80

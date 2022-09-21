@@ -1,6 +1,6 @@
 # Minikube configuration
 
-```minikube service -n default gateway-service```
+
 ## Supprimer TOUT
 ```minikube delete --all```
 
@@ -10,6 +10,7 @@
 2. Enable Ingress: ```minikube addons enable ingress```
 3. Apply all configuration files: ```kubectl apply -R -f .```
 4. Create tunnel to access Ingress service: ```minikube tunnel```
+5. Lancer la gateway ```minikube service -n kong kong-proxy```
 
 ## KONG
 1 . kubectl create -f https://bit.ly/k4k8s

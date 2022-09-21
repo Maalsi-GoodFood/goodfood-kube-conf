@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: ingress
 spec:
+  ingressClassName: kong
   rules:
     - http:
         paths:
@@ -27,3 +28,4 @@ spec:
                 name: order-service
                 port:
                   number: 8080
+

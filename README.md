@@ -1,11 +1,20 @@
 # Minikube configuration
 
+```minikube service -n default gateway-service```
+## Supprimer TOUT
+```minikube delete --all```
+
 ## Deploy the cluster locally
 
 1. Start minikube: ```minikube start```
 2. Enable Ingress: ```minikube addons enable ingress```
 3. Apply all configuration files: ```kubectl apply -R -f .```
 4. Create tunnel to access Ingress service: ```minikube tunnel```
+
+## KONG
+1 . kubectl create -f https://bit.ly/k4k8s
+## Require Helm 3
+2 . helm install kong/kong --generate-name --set ingressController.installCRDs=false
 
 You can also use ```minikube dashboard```  
 >The stateful set takes a few minutes to initialise.  

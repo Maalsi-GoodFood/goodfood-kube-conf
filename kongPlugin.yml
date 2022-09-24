@@ -1,0 +1,7 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: jwt
+config:
+  EXAMPLE_PARAMETER: EXAMPLE_VALUE
+plugin: jwt

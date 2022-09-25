@@ -1,4 +1,8 @@
-_# Minikube configuration
+# Minikube configuration
+
+
+## Supprimer TOUT
+```minikube delete --all```
 
 ## Deploy the cluster locally
 
@@ -6,12 +10,21 @@ _# Minikube configuration
 2. Enable Ingress: ```minikube addons enable ingress```
 3. Apply all configuration files: ```kubectl apply -R -f .```
 4. Create tunnel to access Ingress service: ```minikube tunnel```
+5. Lancer la gateway ```minikube service -n kong kong-proxy```
+
+## KONG
+1 . kubectl create -f https://bit.ly/k4k8s
+## Require Helm 3
+2 . helm install kong/kong --generate-name --set ingressController.installCRDs=false
 
 You can also use ```minikube dashboard```  
 >The stateful set takes a few minutes to initialise.  
 >I think we can say there is an error if after 10mn some stateful set pods are still red.
 
->The oder app pod will restart a few times because the database is not ready yet, it is not a problem.
+> How to force minikube to pull a new version of an image:
+>- Delete the deployment associated with the image to terminate all pods using the image.
+>- Run ```minikube image unload <image name>``` to remove the cached image.
+>- Re-apply the deployment.
 
 ## Kafka - Zookeeper usage in terminal
 
@@ -22,35 +35,25 @@ You can also use ```minikube dashboard```
 
 
 ## Replicated database
-There are 3 database instances: one primary and two replicas.  
-The replicas continuously synchronise their data with the primary.  
+There are 2 database instances: one primary and one replica.  
+The replica continuously synchronise its data with the primary.  
 For write requests, use the primary database (using a headless service).  
-For read requests, use any database instance (primary or replicas).
-
+For read requests, use any database instance (primary or replica).
 
 ## Current state of the cluster
 
 ### Entry point
 The entrypoint of the cluster is: localhost (the default port is 80).  
-Requests with prefix /api/auth are passed to the authorization server.
-All remaining requests are passed to the order service.
 
-### Order
-#### App
-The order app is deployed on a single instance.
-
-#### Database
-The order app uses the primary database for all database queries.
-
-
-### Authorization server
-#### App
-The authorization server is deployed on a single instance.
-
-#### Database
-The authorization server uses the primary for write queries (signup) and any instance for read queries (sign in, token validation).
+### Services
+The services that are deployed are:
+- Order (Replicated database: 1 primary, 1 replica, all requests on primary)
+- Cart (Single instance database)
+- Authorization Server (Replicated database: 1 primary, 1 replica, requests are split)
+- Kafka + Zookeeper
 
 ## Sources
-https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/  
-https://mariadb.org/mariadb-k8s-how-to-replicate-mariadb-in-k8s/
-https://github.com/MariaDB/mariadb.org-tools/tree/master/anel/k8s/mariadb
+- https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/  
+- https://mariadb.org/mariadb-k8s-how-to-replicate-mariadb-in-k8s/
+- https://github.com/MariaDB/mariadb.org-tools/tree/master/anel/k8s/mariadb
+- https://kubernetes.io/docs/tutorials/configuration/configure-redis-using-configmap/

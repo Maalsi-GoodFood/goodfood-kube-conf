@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: cesigoodfood/auth:1.0
+        image: cesigoodfood/auth:latest
         ports:
         - containerPort: 8080
         resources:

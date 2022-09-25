@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pim-deployment
+  labels:
+    app: pim
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pim
+  template:
+    metadata:
+      labels:
+        app: pim
+    spec:
+      containers:
+      - name: pim
+        image: cesigoodfood/pim:1.0
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            memory: "200Mi"
+            cpu: "700m"
+          requests:
+            memory: "200Mi"
+            cpu: "700m"
+      initContainers:
+        - name: wait-db
+          image: busybox:1.31
+          command: ['sh', '-c', "until nslookup mariadb-pim-sts-0.pim-database-service.default.svc.cluster.local; do echo waiting for mydb; sleep 20; done"]

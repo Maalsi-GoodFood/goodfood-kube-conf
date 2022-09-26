@@ -1,0 +1,31 @@
+# Service for write requests: host=mariadb-order-sts-0.order-database-service:3306
+apiVersion: v1
+kind: Service
+metadata:
+  name: pim-database-service
+  labels:
+    app: mariadb
+spec:
+  ports:
+    - port: 3306
+      name: mariadb-port
+  clusterIP: None
+  selector:
+    app: pim-database
+
+---
+
+# Service for read requests: order-database-service-read:3306
+apiVersion: v1
+kind: Service
+metadata:
+  name: pim-database-service-read
+  labels:
+    app: pim-database-read
+    readonly: "true"
+spec:
+  ports:
+    - name: pim-mariadb-port
+      port: 3306
+  selector:
+    app: pim-database

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: pim
-        image: cesigoodfood/pim:1.0
+        image: cesigoodfood/pim:latest
         ports:
         - containerPort: 8080
         resources:
